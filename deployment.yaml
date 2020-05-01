@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flaskversioning-deployment
+  labels:
+    app: flaskversioning
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: flaskversioning
+  template:
+    metadata:
+      labels:
+        app: flaskversioning
+    spec:
+      containers:
+      - name: flaskversioning
+        image: drwitter/flask_versioning:v1.0
+        ports:
+        - containerPort: 5000
